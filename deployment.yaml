@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: getting-started
+  labels:
+    app: getting-started
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: getting-started
+  template:
+    metadata:
+      labels:
+        app: getting-started
+    spec:
+      containers:
+        - name: getting-started
+          image: 699475916598.dkr.ecr.us-east-2.amazonaws.com/getting-started:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 3000  
+          envFrom:
+            - configMapRef:
+                name: app-config
+      restartPolicy: Always
